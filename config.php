@@ -7,7 +7,7 @@
 // ─────────────────────────────────────────────
 // MISTRAL AI
 // ─────────────────────────────────────────────
-define('MISTRAL_API_KEY', 'votre_clé_mistral_ici');
+define('MISTRAL_API_KEY', 'IOxxOSCGW86qkK8VbaeKefRkpNkd0cOg');
 define('MISTRAL_MODEL',   'mistral-large-latest');  // ou 'mistral-small-latest' (moins cher)
 define('MISTRAL_API_URL', 'https://api.mistral.ai/v1/chat/completions');
 define('MISTRAL_MAX_TOKENS', 2048);

@@ -1,1 +1,60 @@
-Nothing should be ignored based on the provided file changes. The modification of 'plc-engine.js' is a source code file that should be tracked in version control.
+```
+# Compiled and build artifacts
+*.pyc
+__pycache__/
+*.o
+*.obj
+*.so
+*.dll
+*.exe
+*.class
+*.out
+
+# Dependencies
+vendor/
+node_modules/
+composer.lock
+
+# Logs and temp files
+*.log
+*.tmp
+*.swp
+*.swo
+
+# Environment
+.env
+.env.local
+.env.*
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# System
+.DS_Store
+Thumbs.db
+
+# Distribution / packaging
+dist/
+build/
+*.tar.gz
+*.zip
+*.tar
+*.gz
+
+# Testing
+.coverage
+coverage/
+htmlcov/
+
+# PHP specific
+*.php~
+.htaccess.bak
+
+# Database
+*.sql.bak
+*.db
+*.sqlite
+```
