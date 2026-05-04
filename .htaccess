@@ -1,0 +1,14 @@
+# Rediriger toutes les requêtes vers index.php
+RewriteEngine On
+
+# Si le fichier ou dossier existe, le servir directement
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Sinon, rediriger vers index.php
+RewriteRule ^(.*)$ index.php [QSA,L]
+
+# Headers de sécurité
+Header set X-Content-Type-Options "nosniff"
+Header set X-Frame-Options "SAMEORIGIN"
+Header set X-XSS-Protection "1; mode=block"
