@@ -1,0 +1,1 @@
+mkdir -p /home/claude/plciosim-offline/{public/{css,js/{core,ui,scenes,utils},assets/{icons,scenes,sounds}},src/{engine,parser,scenes,io-devices},docs,database,tests} && echo "Structure created"

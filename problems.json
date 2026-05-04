@@ -1,0 +1,138 @@
+[
+  {
+    "order_num": 1,
+    "title": "Basic Program",
+    "description": "Design a program to control a lamp using a normally-open pushbutton. Pressing the pushbutton (PB1) should turn on the lamp (LAMP1). Releasing the pushbutton (PB1) should turn off the lamp (LAMP1).",
+    "difficulty": "EASY",
+    "scene": null,
+    "io_config": {
+      "inputs":  [{ "tag": "PB1",   "type": "pushbutton-no", "label": "Pushbutton 1" }],
+      "outputs": [{ "tag": "LAMP1", "type": "lamp",           "label": "Lamp 1", "color": "green" }]
+    },
+    "test_vectors": [
+      { "inputs": { "PB1": 0 }, "expected_outputs": { "LAMP1": 0 }, "description": "PB1 released → LAMP1 off" },
+      { "inputs": { "PB1": 1 }, "expected_outputs": { "LAMP1": 1 }, "description": "PB1 pressed  → LAMP1 on" },
+      { "inputs": { "PB1": 0 }, "expected_outputs": { "LAMP1": 0 }, "description": "PB1 released → LAMP1 off" }
+    ]
+  },
+  {
+    "order_num": 2,
+    "title": "Conveyor",
+    "description": "Design a program to start and stop a conveyor. Pressing the normally-open pushbutton (START) should start the conveyor. It should continue running after the pushbutton (START) is released. Pressing the normally-closed pushbutton (STOP) should stop the conveyor.",
+    "difficulty": "EASY",
+    "scene": "conveyor",
+    "io_config": {
+      "inputs": [
+        { "tag": "START", "type": "pushbutton-no", "label": "START" },
+        { "tag": "STOP",  "type": "pushbutton-nc", "label": "STOP" }
+      ],
+      "outputs": [
+        { "tag": "CONVEYOR", "type": "motor", "label": "Conveyor Motor" }
+      ]
+    },
+    "test_vectors": [
+      { "inputs": { "START": 0, "STOP": 1 }, "expected_outputs": { "CONVEYOR": 0 }, "description": "Initial state — stopped" },
+      { "inputs": { "START": 1, "STOP": 1 }, "expected_outputs": { "CONVEYOR": 1 }, "description": "START pressed — running" },
+      { "inputs": { "START": 0, "STOP": 1 }, "expected_outputs": { "CONVEYOR": 1 }, "description": "START released — still running (seal-in)" },
+      { "inputs": { "START": 0, "STOP": 0 }, "expected_outputs": { "CONVEYOR": 0 }, "description": "STOP pressed — stopped" }
+    ]
+  },
+  {
+    "order_num": 3,
+    "title": "Water Tank",
+    "description": "Design a program to fill and drain a water tank. Pressing normally-open pushbutton (PB1) fills the tank until the water level reaches a normally-open limit switch (FULL). Releasing the pushbutton (PB1) stops the fill operation. Pressing normally-open pushbutton (PB2) drains the tank until the water level reaches a normally-open limit switch (EMPTY).",
+    "difficulty": "EASY",
+    "scene": "water-tank",
+    "io_config": {
+      "inputs": [
+        { "tag": "PB1",   "type": "pushbutton-no", "label": "Fill (PB1)" },
+        { "tag": "PB2",   "type": "pushbutton-no", "label": "Drain (PB2)" },
+        { "tag": "FULL",  "type": "limit-switch",  "label": "Full Level Switch" },
+        { "tag": "EMPTY", "type": "limit-switch",  "label": "Empty Level Switch" }
+      ],
+      "outputs": [
+        { "tag": "FILL_VALVE",  "type": "solenoid", "label": "Fill Valve" },
+        { "tag": "DRAIN_VALVE", "type": "solenoid", "label": "Drain Valve" }
+      ]
+    },
+    "test_vectors": [
+      { "inputs": { "PB1": 0, "PB2": 0, "FULL": 0, "EMPTY": 0 }, "expected_outputs": { "FILL_VALVE": 0, "DRAIN_VALVE": 0 } },
+      { "inputs": { "PB1": 1, "PB2": 0, "FULL": 0, "EMPTY": 0 }, "expected_outputs": { "FILL_VALVE": 1, "DRAIN_VALVE": 0 } },
+      { "inputs": { "PB1": 1, "PB2": 0, "FULL": 1, "EMPTY": 0 }, "expected_outputs": { "FILL_VALVE": 0, "DRAIN_VALVE": 0 } },
+      { "inputs": { "PB1": 0, "PB2": 1, "FULL": 1, "EMPTY": 0 }, "expected_outputs": { "FILL_VALVE": 0, "DRAIN_VALVE": 1 } }
+    ]
+  },
+  {
+    "order_num": 4,
+    "title": "Garage Door",
+    "description": "Design a program to control a garage door. Pressing normally-open pushbutton (OPEN) energizes the motor contactor (FWD) until the door reaches normally-open limit switch (UP), releasing the pushbutton (OPEN) stops the operation. Pressing normally-open pushbutton (CLOSE) energizes the motor contactor (REV) until the door reaches normally-open limit switch (DOWN).",
+    "difficulty": "EASY",
+    "scene": "garage-door",
+    "io_config": {
+      "inputs": [
+        { "tag": "OPEN",  "type": "pushbutton-no", "label": "OPEN" },
+        { "tag": "CLOSE", "type": "pushbutton-no", "label": "CLOSE" },
+        { "tag": "UP",    "type": "limit-switch",  "label": "Limit UP" },
+        { "tag": "DOWN",  "type": "limit-switch",  "label": "Limit DOWN" }
+      ],
+      "outputs": [
+        { "tag": "FWD", "type": "motor", "label": "Motor FWD (Open)" },
+        { "tag": "REV", "type": "motor", "label": "Motor REV (Close)" }
+      ]
+    },
+    "test_vectors": [
+      { "inputs": { "OPEN": 0, "CLOSE": 0, "UP": 0, "DOWN": 0 }, "expected_outputs": { "FWD": 0, "REV": 0 } },
+      { "inputs": { "OPEN": 1, "CLOSE": 0, "UP": 0, "DOWN": 0 }, "expected_outputs": { "FWD": 1, "REV": 0 } },
+      { "inputs": { "OPEN": 1, "CLOSE": 0, "UP": 1, "DOWN": 0 }, "expected_outputs": { "FWD": 0, "REV": 0 } },
+      { "inputs": { "OPEN": 0, "CLOSE": 1, "UP": 0, "DOWN": 0 }, "expected_outputs": { "FWD": 0, "REV": 1 } }
+    ]
+  },
+  {
+    "order_num": 5,
+    "title": "Pushbutton Stoplight",
+    "description": "Design a program to manually turn on and off the three lamps of a stoplight. Pressing pushbutton (PB1) turns on a lamp (GREEN). Pressing pushbutton (PB2) turns on a lamp (YELLOW). Pressing pushbutton (PB3) turns on a lamp (RED). Only one lamp should be on at a time.",
+    "difficulty": "EASY",
+    "scene": null,
+    "io_config": {
+      "inputs": [
+        { "tag": "PB1", "type": "pushbutton-no", "label": "PB1 (Green)" },
+        { "tag": "PB2", "type": "pushbutton-no", "label": "PB2 (Yellow)" },
+        { "tag": "PB3", "type": "pushbutton-no", "label": "PB3 (Red)" }
+      ],
+      "outputs": [
+        { "tag": "GREEN",  "type": "lamp", "label": "Green Light",  "color": "green" },
+        { "tag": "YELLOW", "type": "lamp", "label": "Yellow Light", "color": "yellow" },
+        { "tag": "RED",    "type": "lamp", "label": "Red Light",    "color": "red" }
+      ]
+    },
+    "test_vectors": [
+      { "inputs": { "PB1": 1, "PB2": 0, "PB3": 0 }, "expected_outputs": { "GREEN": 1, "YELLOW": 0, "RED": 0 } },
+      { "inputs": { "PB1": 0, "PB2": 1, "PB3": 0 }, "expected_outputs": { "GREEN": 0, "YELLOW": 1, "RED": 0 } },
+      { "inputs": { "PB1": 0, "PB2": 0, "PB3": 1 }, "expected_outputs": { "GREEN": 0, "YELLOW": 0, "RED": 1 } },
+      { "inputs": { "PB1": 0, "PB2": 0, "PB3": 0 }, "expected_outputs": { "GREEN": 0, "YELLOW": 0, "RED": 0 } }
+    ]
+  },
+  {
+    "order_num": 6,
+    "title": "Traffic Light (Automatic)",
+    "description": "Design a program to automatically control a traffic light sequence using timers. The sequence should be: GREEN for 5 seconds → YELLOW for 2 seconds → RED for 5 seconds → repeat.",
+    "difficulty": "MEDIUM",
+    "scene": "traffic-light",
+    "io_config": {
+      "inputs": [
+        { "tag": "START", "type": "pushbutton-no", "label": "Start Sequence" }
+      ],
+      "outputs": [
+        { "tag": "GREEN",  "type": "lamp", "label": "Green",  "color": "green" },
+        { "tag": "YELLOW", "type": "lamp", "label": "Yellow", "color": "yellow" },
+        { "tag": "RED",    "type": "lamp", "label": "Red",    "color": "red" }
+      ]
+    },
+    "test_vectors": [
+      { "time_ms": 0,    "expected_outputs": { "GREEN": 1, "YELLOW": 0, "RED": 0 } },
+      { "time_ms": 5000, "expected_outputs": { "GREEN": 0, "YELLOW": 1, "RED": 0 } },
+      { "time_ms": 7000, "expected_outputs": { "GREEN": 0, "YELLOW": 0, "RED": 1 } },
+      { "time_ms": 12000,"expected_outputs": { "GREEN": 1, "YELLOW": 0, "RED": 0 } }
+    ]
+  }
+]

@@ -1,0 +1,180 @@
+[
+  {
+    "order_num": 1,
+    "title": "Basic Program",
+    "description": "This program uses a pushbutton to control a lamp. When the pushbutton (PB1) is pressed, the lamp (LAMP1) turns on. When the pushbutton is released, the lamp turns off.",
+    "scene": null,
+    "io_devices": [
+      { "tag": "PB1",   "type": "pushbutton-no", "label": "Pushbutton 1" },
+      { "tag": "LAMP1", "type": "lamp",           "label": "Lamp 1", "color": "green" }
+    ],
+    "instructions_used": ["XIC", "OTE"],
+    "program": {
+      "tags": [
+        { "name": "PB1",   "type": "BOOL", "alias": "Pushbutton 1" },
+        { "name": "LAMP1", "type": "BOOL", "alias": "Lamp 1" }
+      ],
+      "rungs": [
+        {
+          "id": 0,
+          "comment": "PB1 controls LAMP1 directly",
+          "instructions": [
+            { "type": "XIC", "tag": "PB1",   "position": { "row": 0, "col": 0 } },
+            { "type": "OTE", "tag": "LAMP1", "position": { "row": 0, "col": 1 } }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "order_num": 2,
+    "title": "NO NC Matrix",
+    "description": "This program demonstrates logic using normally-open and normally-closed IO devices and instructions. A normally-open pushbutton (PB1) controls two lamps (LAMP1 and LAMP2). Initially, LAMP1 is off and LAMP2 is on. When PB1 is pressed, LAMP1 is on and LAMP2 is off.",
+    "scene": null,
+    "io_devices": [
+      { "tag": "PB1",   "type": "pushbutton-no", "label": "Pushbutton 1 (NO)" },
+      { "tag": "PB2",   "type": "pushbutton-nc", "label": "Pushbutton 2 (NC)" },
+      { "tag": "LAMP1", "type": "lamp",           "label": "Lamp 1", "color": "green" },
+      { "tag": "LAMP2", "type": "lamp",           "label": "Lamp 2", "color": "red" }
+    ],
+    "instructions_used": ["XIC", "XIO", "OTE"],
+    "program": {
+      "tags": [
+        { "name": "PB1",   "type": "BOOL", "alias": "Pushbutton 1 NO" },
+        { "name": "PB2",   "type": "BOOL", "alias": "Pushbutton 2 NC" },
+        { "name": "LAMP1", "type": "BOOL", "alias": "Lamp 1" },
+        { "name": "LAMP2", "type": "BOOL", "alias": "Lamp 2" }
+      ],
+      "rungs": [
+        {
+          "id": 0,
+          "comment": "XIC(PB1) → LAMP1 on when PB1 pressed",
+          "instructions": [
+            { "type": "XIC", "tag": "PB1",   "position": { "row": 0, "col": 0 } },
+            { "type": "OTE", "tag": "LAMP1", "position": { "row": 0, "col": 1 } }
+          ]
+        },
+        {
+          "id": 1,
+          "comment": "XIO(PB1) → LAMP2 on when PB1 NOT pressed",
+          "instructions": [
+            { "type": "XIO", "tag": "PB1",   "position": { "row": 0, "col": 0 } },
+            { "type": "OTE", "tag": "LAMP2", "position": { "row": 0, "col": 1 } }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "order_num": 3,
+    "title": "Logic Elements",
+    "description": "This program demonstrates instruction logic elements using normally-open pushbuttons and lamps. XIC instructions referencing PB1 and PB2 are arranged in series to create AND logic to energize LAMP1. XIC instructions referencing PB3 and PB4 are arranged in parallel to create OR logic to energize LAMP2.",
+    "scene": null,
+    "io_devices": [
+      { "tag": "PB1",   "type": "pushbutton-no", "label": "PB1" },
+      { "tag": "PB2",   "type": "pushbutton-no", "label": "PB2" },
+      { "tag": "PB3",   "type": "pushbutton-no", "label": "PB3" },
+      { "tag": "PB4",   "type": "pushbutton-no", "label": "PB4" },
+      { "tag": "LAMP1", "type": "lamp",           "label": "Lamp 1 (AND)", "color": "green" },
+      { "tag": "LAMP2", "type": "lamp",           "label": "Lamp 2 (OR)",  "color": "yellow" }
+    ],
+    "instructions_used": ["XIC", "OTE"],
+    "program": {
+      "tags": [
+        { "name": "PB1",   "type": "BOOL" },
+        { "name": "PB2",   "type": "BOOL" },
+        { "name": "PB3",   "type": "BOOL" },
+        { "name": "PB4",   "type": "BOOL" },
+        { "name": "LAMP1", "type": "BOOL", "alias": "AND Lamp" },
+        { "name": "LAMP2", "type": "BOOL", "alias": "OR Lamp" }
+      ],
+      "rungs": [
+        {
+          "id": 0,
+          "comment": "AND logic — PB1 AND PB2 → LAMP1",
+          "instructions": [
+            { "type": "XIC", "tag": "PB1",   "position": { "row": 0, "col": 0 } },
+            { "type": "XIC", "tag": "PB2",   "position": { "row": 0, "col": 1 } },
+            { "type": "OTE", "tag": "LAMP1", "position": { "row": 0, "col": 2 } }
+          ]
+        },
+        {
+          "id": 1,
+          "comment": "OR logic — PB3 OR PB4 → LAMP2",
+          "instructions": [
+            { "type": "XIC", "tag": "PB3",   "position": { "row": 0, "col": 0 } },
+            { "type": "XIC", "tag": "PB4",   "position": { "row": 1, "col": 0 } },
+            { "type": "OTE", "tag": "LAMP2", "position": { "row": 0, "col": 1 } }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "order_num": 4,
+    "title": "Memory Logic",
+    "description": "Memory logic (seal-in circuit) causes an output to stay energized after the input which initially caused it to turn on de-energizes. Pressing the normally-open pushbutton (PB1) will energize the motor contactor (M1). The motor contactor continues to be energized after the pushbutton is released. Pressing the normally-closed pushbutton (PB2) will de-energize the motor contactor.",
+    "scene": "conveyor",
+    "io_devices": [
+      { "tag": "PB1", "type": "pushbutton-no", "label": "START (PB1)" },
+      { "tag": "PB2", "type": "pushbutton-nc", "label": "STOP (PB2)" },
+      { "tag": "M1",  "type": "motor",         "label": "Motor Contactor (M1)" }
+    ],
+    "instructions_used": ["XIC", "XIO", "OTE"],
+    "program": {
+      "tags": [
+        { "name": "PB1", "type": "BOOL", "alias": "Start Button" },
+        { "name": "PB2", "type": "BOOL", "alias": "Stop Button" },
+        { "name": "M1",  "type": "BOOL", "alias": "Motor Contactor" }
+      ],
+      "rungs": [
+        {
+          "id": 0,
+          "comment": "Start/Stop avec seal-in — circuit mémoire classique",
+          "instructions": [
+            { "type": "XIC", "tag": "PB1", "position": { "row": 0, "col": 0 } },
+            { "type": "XIC", "tag": "M1",  "position": { "row": 1, "col": 0 } },
+            { "type": "XIO", "tag": "PB2", "position": { "row": 0, "col": 1 } },
+            { "type": "OTE", "tag": "M1",  "position": { "row": 0, "col": 2 } }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "order_num": 5,
+    "title": "Timer On-Delay (TON)",
+    "description": "This program demonstrates the Timer On-Delay (TON) instruction. When the pushbutton (PB1) is pressed and held, the timer begins counting. After 5 seconds, the lamp (LAMP1) turns on. When PB1 is released, the timer resets and the lamp turns off.",
+    "scene": null,
+    "io_devices": [
+      { "tag": "PB1",   "type": "pushbutton-no", "label": "PB1 (Start Timer)" },
+      { "tag": "LAMP1", "type": "lamp",           "label": "LAMP1 (Timer Done)", "color": "green" }
+    ],
+    "instructions_used": ["XIC", "TON", "OTE"],
+    "program": {
+      "tags": [
+        { "name": "PB1",      "type": "BOOL", "alias": "Start Timer" },
+        { "name": "T1",       "type": "TIMER" },
+        { "name": "LAMP1",    "type": "BOOL", "alias": "Timer Done Lamp" }
+      ],
+      "rungs": [
+        {
+          "id": 0,
+          "comment": "Activer le timer TON quand PB1 est pressé",
+          "instructions": [
+            { "type": "XIC", "tag": "PB1", "position": { "row": 0, "col": 0 } },
+            { "type": "TON", "tag": "T1",  "preset": 5000, "position": { "row": 0, "col": 1 } }
+          ]
+        },
+        {
+          "id": 1,
+          "comment": "Allumer LAMP1 quand le timer est done",
+          "instructions": [
+            { "type": "XIC", "tag": "T1.DN",  "position": { "row": 0, "col": 0 } },
+            { "type": "OTE", "tag": "LAMP1",  "position": { "row": 0, "col": 1 } }
+          ]
+        }
+      ]
+    }
+  }
+]
